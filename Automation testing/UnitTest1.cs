@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using System;
@@ -16,7 +16,9 @@ namespace Automation_testing
             By googleSearchBar = By.Name("q");
             By googleSearchButton = By.Name("btnK");
             By googleResultText = By.XPath(".//h2//span[text()='Street Fighter V']");
-            By googleIAgreeButton = By.Id("L2AGLb");
+            By moreinfo = By.XPath("//*[@id=\"contents__esports\"]/div/div[1]/p/a");
+
+            
 
             IWebDriver webDriver = new ChromeDriver();
 
@@ -26,11 +28,12 @@ namespace Automation_testing
 
             Thread.Sleep(waitingTime);
 
-            webDriver.FindElement(googleIAgreeButton).Click();
+           
 
             webDriver.Manage().Window.Maximize();
 
             Thread.Sleep(waitingTime);
+
 
             webDriver.FindElement(googleSearchBar).SendKeys("Street Fighter V");
 
@@ -43,8 +46,21 @@ namespace Automation_testing
             var actualResultText = webDriver.FindElement(googleResultText);
 
             Assert.IsTrue(actualResultText.Text.Equals("Street Fighter V"));
+            webDriver.Navigate().GoToUrl("https://www.streetfighter.com/en/");
 
-            webDriver.Quit();
+           
+
+            Thread.Sleep(waitingTime);  
+
+            webDriver.FindElement(moreinfo).Click();
+
+            Thread.Sleep(1000);
+
+
+
+
         }
+
+
     }
 }
